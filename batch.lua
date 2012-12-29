@@ -122,8 +122,10 @@ end
 function sub_vars(parts, args)
     local function sub_var(c)
         local i = tonumber(c)
-        if i ~= nil and i >= 1 and i <= #args then
-            return args[i]
+        if i ~= nil and i >= 1 then
+            return args[i] or ''
+        elseif c == '#' then
+            return tostring(#args)
         elseif c == '*' then
             return table.concat(args, " ")
         end
