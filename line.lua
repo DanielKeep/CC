@@ -169,13 +169,13 @@ function replace_vars(parts, vars)
         return false
     end
 
-    local parts = {}
+    local result = {}
     for i,part in ipairs(parts) do
         local part = string.gsub(part, "[$]([a-zA-Z_][a-zA-Z_0-9]*)", sub_var)
-        parts[i] = part
+        result[i] = part
     end
 
-    return parts
+    return result
 end
 
 function showHelp()
