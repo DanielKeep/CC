@@ -51,7 +51,7 @@ function main(args)
                 flags[name] = true
                 argDone = true
 
-            elseif #pargs < 2 then
+            elseif #pargs < 1 then
 
                 pargs[#pargs+1] = tonumber(arg)
                 argDone = true
