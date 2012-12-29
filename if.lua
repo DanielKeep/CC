@@ -12,7 +12,19 @@
   ]]
 
 local args = {...}
-local VERSION = 0.1
+local VERSION = 0.2
+
+local cond_fenv = {}
+
+function cond_fenv.missing(value)
+    return function(arg)
+        if arg == nil then
+            return value
+        else
+            return arg
+        end
+    end
+end
 
 function main(args)
     local condt = {}
@@ -42,8 +54,14 @@ function main(args)
     end
 
     local cond = table.concat(condt, ' ')
+    local condfn = loadstring('return '..cond)
+    if not condfn then
+        error "invalid condition"
+    end
 
-    if loadstring('return '..cond)() then
+    setfenv(condfn, cond_fenv)
+
+    if condfn() then
         if #tcmdt > 0 then
             shell.run(unpack(tcmdt))
         end

@@ -34,7 +34,6 @@ function main(args)
 
     -- Start processing
     local function exec_fn(args)
-        print('> ' .. table.concat(args, ' '))
         return shell.run(unpack(args))
     end
     if not process_script(lines, script_args, exec_fn) then
@@ -70,8 +69,6 @@ function process_script(lines, args, exec_fn)
             local do_line_i = line_i + 1
 
             while do_depth > 0 do
-                print('do_depth: ', do_depth)
-                print('do_line_i: ', do_line_i)
                 if do_line_i > #lines then
                     error("missing `]]' to match `[[' on line "
                         .. tostring(line_i))
