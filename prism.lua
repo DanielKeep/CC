@@ -118,8 +118,8 @@ function main(args)
     local dig = flags.dig or false
     local gravity = flags.gravity or flags.g or false
 
-    local turnDir = 'turnRight'
-    local turnDir_alt = 'turnLeft'
+    local turnDir = 'turnLeft'
+    local turnDir_alt = 'turnRight'
 
     local yDir = 'up'
 
@@ -170,7 +170,7 @@ function main(args)
 
             print('  chdir')
             turnDir,turnDir_alt = turnDir_alt,turnDir
-            
+
             za,zb,zd,zdo = zb,za,zdo,zd
 
             if x ~= xb then
