@@ -8,7 +8,7 @@
   ]]
 
 --[[
-    Usage: [[ COMMAND [;; COMMAND]... [;;;;]
+    Usage: supply commands separated by ';;', terminate with ';;;;'
   ]]
 
 local args = {...}
