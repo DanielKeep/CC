@@ -49,6 +49,10 @@ function main(args)
         end
     end
 
+    if #condt == 0 then
+        error "expected condition"
+    end
+
     if tcmdt == nil then
         error "expected 'then' clause"
     end
