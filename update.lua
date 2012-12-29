@@ -32,15 +32,19 @@ function main(args)
 
     if #args == 0 then
         -- If no packages were specified, then we should just update everything.
-        for _,name in ipairs(pkgs.packages) do
-            installPackage(pkgs, name)
+        for name,installed in pairs(config.packages) do
+            if installed then
+                installPackage(config, pkgs, name)
+            end
         end
     else
         -- Otherwise, update only the specified packages.
         for _,name in ipairs(args) do
-            installPackage(pkgs, name)
+            installPackage(config, pkgs, name)
         end
     end
+
+    saveConfig(config)
 end
 
 function loadConfig()
@@ -66,9 +70,10 @@ function getPackages(repo, branch)
     local pkgs = textutils.unserialize(githubGet(repo, branch, 'packages.lua'))
     pkgs.repository = repo
     pkgs.branch = branch
+    return pkgs
 end
 
-function installPackage(pkgs, name)
+function installPackage(config, pkgs, name)
     if pkgs[name] == nil then
         error("unknown package `"..name.."'")
     end
@@ -95,7 +100,7 @@ function installPackage(pkgs, name)
         f:close()
     end
 
-    pkgs[name] = true
+    config.packages[name] = true
 end
 
 function relpath(path)
