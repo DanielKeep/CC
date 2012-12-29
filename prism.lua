@@ -128,7 +128,6 @@ function main(args)
     end
 
     local function turn()
-        print('    -', turnDir)
         turtle[turnDir]()
     end
 
