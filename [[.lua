@@ -46,7 +46,7 @@ function main(args)
         end
 
         if not skip then
-            if arg == ';;' then
+            if arg == ';;' and depth == 1 then
                 flush()
             else
                 accum[#accum+1] = arg
