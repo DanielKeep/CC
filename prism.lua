@@ -155,16 +155,16 @@ function main(args)
                 end
             end
 
-            if y ~= h then
+            if z ~= d then
                 turn()
                 adv()
                 turn()
+            end
 
-                if turnDir == 'turnRight' then
-                    turnDir = 'turnLeft'
-                else
-                    turnDir = 'turnRight'
-                end
+            if turnDir == 'turnRight' then
+                turnDir = 'turnLeft'
+            else
+                turnDir = 'turnRight'
             end
         end
 
