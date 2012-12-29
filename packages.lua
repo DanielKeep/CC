@@ -18,4 +18,9 @@
     {
         files = {"rect.lua*"}
     },
+
+    prism =
+    {
+        files = {"prism.lua*"}
+    },
 }
