@@ -31,6 +31,6 @@
 
     control =
     {
-        files = {"id.lua*"}
+        files = {"if.lua*"}
     },
 }
