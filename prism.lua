@@ -155,7 +155,18 @@ function main(args)
         for x=xa,xb,xd do
             for z=za,zb,zd do
                 os.sleep(YIELD_WAIT)
-                if not doCommands(commands) then
+                local vars =
+                {
+                    x = x,
+                    y = y,
+                    z = z,
+                    w = w,
+                    h = h,
+                    d = d,
+                    v = w*h*d,
+                    i = z + x*d + y*w*d,
+                }
+                if not doCommands(commands, vars) then
                     return
                 end
 
@@ -224,6 +235,23 @@ function unpack(table)
         end
     end
     return tail(1)
+end
+
+function replace_vars(parts, vars)
+    local function sub_var(c)
+        if vars[c] ~= nil then
+            return tostring(vars[c])
+        end
+        return false
+    end
+
+    local result = {}
+    for i,part in ipairs(parts) do
+        local part = string.gsub(part, "[$]([a-zA-Z_][a-zA-Z_0-9]*)", sub_var)
+        result[i] = part
+    end
+
+    return result
 end
 
 function showHelp()
