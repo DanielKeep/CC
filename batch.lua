@@ -34,6 +34,7 @@ function main(args)
 
     -- Start processing
     local function exec_fn(args)
+        print('> ' .. table.concat(args, ' '))
         return shell.run(unpack(args))
     end
     if not process_script(lines, script_args, exec_fn) then
