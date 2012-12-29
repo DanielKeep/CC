@@ -12,7 +12,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.5
+local VERSION = 0.6
 
 local GRAVITY_WAIT = 0.4
 local YIELD_WAIT = 0.01
