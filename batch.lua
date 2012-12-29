@@ -48,6 +48,7 @@ function process_script(lines, args, exec_fn)
         local line = lines[line_i]
         local next_line_i = line_i + 1
         local parts = split_line(line)
+        parts = sub_vars(parts, args)
 
         -- Are we at the start of a do block?
         if parts[#parts] == '[[' then
@@ -86,7 +87,7 @@ function process_script(lines, args, exec_fn)
                     if do_parts[#do_parts] == "[[" then
                         do_depth = do_depth + 1
                     end
-                    do_parts = do_line_subs(do_parts, args)
+                    do_parts = sub_vars(do_parts, args)
                     append_to_block(do_parts)
                 end
                 do_line_i = do_line_i + 1
@@ -121,7 +122,7 @@ function split_line(s)
     return parts
 end
 
-function do_line_subs(parts, args)
+function sub_vars(parts, args)
     local function sub_var(c)
         local i = tonumber(c)
         if i ~= nil and i >= 1 and i <= #args then
