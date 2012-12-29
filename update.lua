@@ -109,7 +109,7 @@ function githubGet(repo, branch, path)
         local ev, resUrl, res = os.pullEvent()
 
         if ev == 'http_success' and resUrl == url then
-            local body = response.readAll()
+            local body = res.readAll()
             return body
         elseif ev == 'http_failure' and resUrl == url then
             error("failed to fetch `"..path.."'")
