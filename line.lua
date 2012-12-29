@@ -111,13 +111,9 @@ function main(args)
             return
         end
 
-        if x ~= w then
+        if x ~= length then
             adv()
         end
-    end
-
-    if y ~= h then
-        adv()
     end
 end
 
