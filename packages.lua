@@ -23,4 +23,9 @@
     {
         files = {"prism.lua*"}
     },
+
+    basics =
+    {
+        files = {"echo.lua*"}
+    },
 }
