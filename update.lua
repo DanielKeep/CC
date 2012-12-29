@@ -75,7 +75,7 @@ end
 
 function installPackage(config, pkgs, name)
     if pkgs[name] == nil then
-        error("unknown package `"..name.."'")
+        error("unknown package '"..name.."'")
     end
     print(name)
     local pkg = pkgs[name]
@@ -89,13 +89,17 @@ function installPackage(config, pkgs, name)
             repoPath = string.match(path, '^(.*)[*]$')
         end
 
-        print(string.format(' - %s:%s -> %s',
+        print(string.format(' - %s',
             pkgs.repository, repoPath, localName))
 
         local body = githubGet(pkgs.repository, pkgs.branch, repoPath)
+        print(string.format('   %d bytes', string.len(body)))
+
         local localPath = relpath(localName)
+        print(string.format('   -> %s', localPath))
+
         if fs.exists(localPath) then fs.delete(localPath) end
-        local f = io.open(localPath, 'wb')
+        local f = io.open(localPath, 'w')
         f:write(body)
         f:close()
     end
@@ -117,7 +121,7 @@ function githubGet(repo, branch, path)
             local body = res.readAll()
             return body
         elseif ev == 'http_failure' and resUrl == url then
-            error("failed to fetch `"..path.."'")
+            error("failed to fetch '"..path.."'")
         end
     end
 end
