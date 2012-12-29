@@ -26,7 +26,7 @@
 
     basics =
     {
-        files = {"echo.lua*", "place.lua*"}
+        files = {"echo.lua*", "place.lua*", "dig.lua*"}
     },
 
     control =
