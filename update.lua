@@ -89,14 +89,13 @@ function installPackage(config, pkgs, name)
             repoPath = string.match(path, '^(.*)[*]$')
         end
 
-        print(string.format(' - %s',
-            pkgs.repository, repoPath, localName))
+        print(string.format(' - %s', localName))
 
         local body = githubGet(pkgs.repository, pkgs.branch, repoPath)
-        print(string.format('   %d bytes', string.len(body)))
+        --print(string.format('   %d bytes', string.len(body)))
 
         local localPath = relpath(localName)
-        print(string.format('   -> %s', localPath))
+        --print(string.format('   -> %s', localPath))
 
         if fs.exists(localPath) then fs.delete(localPath) end
         local f = io.open(localPath, 'w')
