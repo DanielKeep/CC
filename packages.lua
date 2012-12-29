@@ -28,4 +28,9 @@
     {
         files = {"echo.lua*"}
     },
+
+    control =
+    {
+        files = {"id.lua*"}
+    },
 }
