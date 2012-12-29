@@ -168,6 +168,9 @@ function main(args)
                 end
             end
 
+            print('  chdir')
+            turnDir,turnDir_alt = turnDir_alt,turnDir
+            
             za,zb,zd,zdo = zb,za,zdo,zd
 
             if x ~= xb then
@@ -175,9 +178,6 @@ function main(args)
                 adv()
                 turn()
             end
-
-            print('  chdir')
-            turnDir,turnDir_alt = turnDir_alt,turnDir
         end
 
         xa,xb,xd,xdo = xb,xa,xdo,xd
