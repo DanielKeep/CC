@@ -12,7 +12,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.4
+local VERSION = 0.5
 
 local GRAVITY_WAIT = 0.4
 local YIELD_WAIT = 0.01
@@ -111,7 +111,7 @@ function main(args)
 
     local turnDir = 'turnRight'
     if flags.r or flags.right then
-        local turnDir = 'turnLeft'
+        turnDir = 'turnLeft'
     end
 
     local function adv()
