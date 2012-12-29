@@ -107,7 +107,8 @@ function main(args)
 
     for x=1,length do
         os.sleep(YIELD_WAIT)
-        if not doCommands(commands) then
+        local vars = { x=x, l=length, length=length }
+        if not doCommands(commands, vars) then
             return
         end
 
@@ -137,8 +138,9 @@ function ensure(fn, ...)
     end
 end
 
-function doCommands(commands)
+function doCommands(commands, vars)
     for _,cmd in ipairs(commands) do
+        local cmd = replace_vars(cmd, vars)
         local success = shell.run(unpack(cmd))
         if not success then
             return false
@@ -157,6 +159,23 @@ function unpack(table)
         end
     end
     return tail(1)
+end
+
+function replace_vars(parts, vars)
+    local function sub_var(c)
+        if vars[c] ~= nil then
+            return tostring(vars[c])
+        end
+        return false
+    end
+
+    local parts = parts
+    for i,part in ipairs(parts) do
+        local part = string.gsub(part, "[$]([a-zA-Z_][a-zA-Z_0-9]*)", sub_var)
+        parts[i] = part
+    end
+
+    return parts
 end
 
 function showHelp()
