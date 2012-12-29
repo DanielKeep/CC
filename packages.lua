@@ -31,6 +31,6 @@
 
     control =
     {
-        files = {"if.lua*"}
+        files = {"if.lua*", "batch.lua*"}
     },
 }
