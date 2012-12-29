@@ -39,7 +39,7 @@ function main(args)
         end
 
         if depth == 0 then
-            if i ~= #arg then
+            if i ~= #args then
                 error "got ';;;;' before end of arguments"
             end
             break
