@@ -119,14 +119,9 @@ function main(args)
     local gravity = flags.gravity or flags.g or false
 
     local turnDir = 'turnRight'
-    if flags.r or flags.right then
-        turnDir = 'turnLeft'
-    end
+    local turnDir_alt = 'turnLeft'
 
-    local zDir = 'up'
-    if flags.d or flags.down then
-        zDir = 'down'
-    end
+    local yDir = 'up'
 
     local function adv()
         advance(dig, gravity)
@@ -137,38 +132,56 @@ function main(args)
     end
 
     local function nextLevel()
-        turtle[zDir]()
+        turtle[yDir]()
         turn()
         turn()
     end
 
-    for y=1,h do
-        for z=1,d do
-            for x=1,w do
+    local xa,xb,xd,xdo = 1,w,1,-1
+    local ya,yb,yd = 1,h,1
+    local za,zb,zd,zdo = 1,d,1,-1
+
+    if flags.r or flags.right then
+        turnDir,turnDir_alt = turnDir_alt,turnDir
+        xa,xb,xd,xdo = xb,xa,-1,1
+    end
+
+    if flags.d or flags.down then
+        yDir = 'down'
+        ya,yb,yd = yb,ya,-1
+    end
+
+    for y=ya,yb,yd do
+        print('y:   ', y)
+        for x=xa,xb,xd do
+            print(' x:  ', x)
+            for z=za,zb,zd do
+                print('  z: ', z)
                 os.sleep(YIELD_WAIT)
                 if not doCommands(commands) then
                     return
                 end
 
-                if x ~= w then
+                if z ~= zb then
                     adv()
                 end
             end
 
-            if z ~= d then
+            za,zb,zd,zdo = zb,za,zdo,zd
+
+            if x ~= xb then
                 turn()
                 adv()
                 turn()
             end
 
-            if turnDir == 'turnRight' then
-                turnDir = 'turnLeft'
-            else
-                turnDir = 'turnRight'
-            end
+            print('  chdir')
+            turnDir,turnDir_alt = turnDir_alt,turnDir
         end
 
-        if y ~= h then
+        xa,xb,xd,xdo = xb,xa,xdo,xd
+
+        if y ~= yb then
             nextLevel()
         end
     end
