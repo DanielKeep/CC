@@ -215,7 +215,7 @@ function ensure(fn, ...)
     end
 end
 
-function doCommands(commands)
+function doCommands(commands, vars)
     for _,cmd in ipairs(commands) do
         local cmd = replace_vars(cmd, vars)
         local success = shell.run(unpack(cmd))
