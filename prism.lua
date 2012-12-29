@@ -153,11 +153,8 @@ function main(args)
     end
 
     for y=ya,yb,yd do
-        print('y:   ', y)
         for x=xa,xb,xd do
-            print(' x:  ', x)
             for z=za,zb,zd do
-                print('  z: ', z)
                 os.sleep(YIELD_WAIT)
                 if not doCommands(commands) then
                     return
@@ -168,7 +165,6 @@ function main(args)
                 end
             end
 
-            print('  chdir')
             turnDir,turnDir_alt = turnDir_alt,turnDir
 
             za,zb,zd,zdo = zb,za,zdo,zd
@@ -183,6 +179,7 @@ function main(args)
         xa,xb,xd,xdo = xb,xa,xdo,xd
 
         if y ~= yb then
+            turnDir,turnDir_alt = turnDir_alt,turnDir
             nextLevel()
         end
     end
