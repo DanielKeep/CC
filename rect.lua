@@ -12,7 +12,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.3
+local VERSION = 0.4
 
 local GRAVITY_WAIT = 0.4
 local YIELD_WAIT = 0.01
@@ -88,26 +88,22 @@ function main(args)
     end
 
     if #pargs ~= 2 then
-        print "Error: expected W and H."
-        return
+        error "expected WIDTH and HEIGHT"
     end
 
     if #commands == 0 then
-        print "Error: no commands given."
-        return
+        print "Warning: no commands given."
     end
 
     local w = tonumber(pargs[1])
     local h = tonumber(pargs[2])
 
     if not w then
-        print "Error: invalid width."
-        return
+        error "invalid width"
     end
 
     if not h then
-        print "Error: invalid height."
-        return
+        error "invalid height"
     end
 
     local dig = flags.dig or false

@@ -12,7 +12,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.1
+local VERSION = 0.4
 
 local GRAVITY_WAIT = 0.4
 local YIELD_WAIT = 0.01
@@ -84,20 +84,18 @@ function main(args)
     end
 
     if #pargs ~= 1 then
-        print "Error: expected LENGTH."
+        error "expected LENGTH"
         return
     end
 
     if #commands == 0 then
-        print "Error: no commands given."
-        return
+        print "Warning: no commands given."
     end
 
     local length = tonumber(pargs[1])
 
     if not length then
-        print "Error: invalid length."
-        return
+        error "invalid length"
     end
 
     local dig = flags.dig or false
