@@ -70,7 +70,7 @@ end
 
 function installPackage(pkgs, name)
     if pkgs[name] == nil then
-        error "unknown package `"..name.."'"
+        error("unknown package `"..name.."'")
     end
     print(name)
     local pkg = pkgs[name]
@@ -112,7 +112,7 @@ function githubGet(repo, branch, path)
             local body = response.readAll()
             return body
         elseif ev == 'http_failure' and resUrl == url then
-            return nil
+            error("failed to fetch `"..path.."'")
         end
     end
 end
