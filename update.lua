@@ -63,7 +63,7 @@ function saveConfig(t)
 end
 
 function getPackages(repo, branch)
-    local pkgs = githubGet(repo, branch, 'packages.lua')
+    local pkgs = textutils.unserialize(githubGet(repo, branch, 'packages.lua'))
     pkgs.repository = repo
     pkgs.branch = branch
 end
