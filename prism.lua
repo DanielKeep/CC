@@ -138,6 +138,8 @@ function main(args)
 
     local function nextLevel()
         turtle[zDir]()
+        turn()
+        turn()
     end
 
     for y=1,h do
