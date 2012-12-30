@@ -120,8 +120,8 @@ function main(args)
         turtle[turnDir]()
     end
 
-    for y=1,h do
-        for x=1,w do
+    for x=1,w do
+        for y=1,h do
             os.sleep(YIELD_WAIT)
             local vars =
             {
@@ -136,12 +136,12 @@ function main(args)
                 return
             end
 
-            if x ~= w then
+            if y ~= h then
                 adv()
             end
         end
 
-        if y ~= h then
+        if x ~= w then
             turn()
             adv()
             turn()
