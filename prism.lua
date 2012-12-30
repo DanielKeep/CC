@@ -32,7 +32,8 @@ function main(args)
         d = false,
         down = false,
         u = false,
-        up = false
+        up = false,
+        log = false,
     }
     local pargs = {}
     local command = nil
@@ -96,6 +97,16 @@ function main(args)
         print "Warning: no commands given."
     end
 
+    local function log(s) end
+
+    if flags.log then
+        local logFile = io.open('prism.log', 'w')
+        log = function(s)
+            logFile:write(s)
+            logFile:flush()
+        end
+    end
+
     local w = tonumber(pargs[1])
     local h = tonumber(pargs[2])
     local d = tonumber(pargs[3])
@@ -126,10 +137,12 @@ function main(args)
     end
 
     local function turn()
+        log('t' .. string.sub(turnDir, 5,5))
         turtle[turnDir]()
     end
 
     local function nextLevel()
+        log('n')
         while not turtle[yDir]() do
             if dig then turtle[yDig]() end
             os.sleep(YIELD_WAIT)
@@ -155,8 +168,11 @@ function main(args)
     end
 
     for y=ya,yb,yd do
+        log('y' .. tostring(y))
         for x=xa,xb,xd do
+            log('x' .. tostring(x))
             for z=za,zb,zd do
+                log('z' .. tostring(z))
                 os.sleep(YIELD_WAIT)
                 local vars =
                 {
@@ -198,6 +214,7 @@ function main(args)
 end
 
 function advance(dig)
+    log('a')
     while not turtle.forward() do
         if dig then turtle.dig() end
         os.sleep(YIELD_WAIT)
@@ -211,6 +228,7 @@ function ensure(fn, ...)
 end
 
 function doCommands(commands, vars)
+    log('d')
     for _,cmd in ipairs(commands) do
         local cmd = replace_vars(cmd, vars)
         local success = shell.run(unpack(cmd))
