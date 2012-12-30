@@ -210,6 +210,8 @@ function main(args)
             turnDir,turnDir_alt = turnDir_alt,turnDir
             nextLevel()
         end
+
+        log('\n')
     end
 end
 
