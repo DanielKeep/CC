@@ -107,15 +107,15 @@ function main(args)
     local dig = flags.dig or false
     local gravity = flags.gravity or flags.g or false
 
-    local xa,xb,xd,xdo = 1,w,1,-1
-    local ya,yb,yd,ydo = 1,h,1,-1
+    local xa,xb,xd      = 1,w,1
+    local ya,yb,yd,ydo  = 1,h,1,-1
 
     local turnDir = 'turnRight'
     local turnDir_alt = 'turnLeft'
 
     if flags.rtl then
         turnDir,turnDir_alt = turnDir_alt,turnDir
-        xa,xb,xd,xdo = xb,xa,-1,1
+        xa,xb,xd = xb,xa,-1
     end
 
     local function adv()
@@ -147,17 +147,14 @@ function main(args)
             end
         end
 
-        turnDir,turnDir_alt = turnDir_alt,turnDir
-
-        ya,yb,yd,ydo = yb,ya,ydo,yd
-
         if x ~= xb then
             turn()
             adv()
             turn()
         end
 
-        xa,xb,xd,xdo = xb,xa,xdo,xd
+        turnDir,turnDir_alt = turnDir_alt,turnDir
+        ya,yb,yd,ydo = yb,ya,ydo,yd
     end
 end
 
