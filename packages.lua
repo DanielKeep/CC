@@ -9,19 +9,9 @@
         files = {"wget.lua*"}
     },
 
-    line =
+    geometry =
     {
-        files = {"line.lua*"}
-    },
-
-    rect =
-    {
-        files = {"rect.lua*"}
-    },
-
-    prism =
-    {
-        files = {"prism.lua*"}
+        files = {"line.lua*", "rect.lua*", "prism.lua*"}
     },
 
     basics =
