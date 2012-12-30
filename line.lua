@@ -14,7 +14,6 @@
 local args = {...}
 local VERSION = 0.6
 
-local GRAVITY_WAIT = 0.4
 local YIELD_WAIT = 0.01
 
 function main(args)
@@ -26,8 +25,6 @@ function main(args)
     local flags =
     {
         dig = false,
-        g = false,
-        gravity = false,
     }
     local pargs = {}
     local command = nil
@@ -99,10 +96,9 @@ function main(args)
     end
 
     local dig = flags.dig or false
-    local gravity = flags.gravity or flags.g or false
-
+    
     local function adv()
-        advance(dig, gravity)
+        advance(dig)
     end
 
     for x=1,length do
@@ -118,7 +114,7 @@ function main(args)
     end
 end
 
-function advance(dig, gravity)
+function advance(dig)
     while not turtle.forward() do
         if dig then turtle.dig() end
         os.sleep(YIELD_WAIT)
@@ -176,8 +172,7 @@ function showHelp()
     print [[Usage: line LENGTH [OPTIONS] [--] COMMAND [; COMMAND]*
 Options:
   -dig          Digs out blocks in order to proceed.  Default is to stop
-                at obstructions.
-  -gravity      When digging, waits for gravity blocks to fall.]]
+                at obstructions.]]
 end
 
 main(args)
