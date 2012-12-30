@@ -14,7 +14,6 @@
 local args = {...}
 local VERSION = 0.6
 
-local GRAVITY_WAIT = 0.4
 local YIELD_WAIT = 0.01
 
 function main(args)
@@ -26,8 +25,6 @@ function main(args)
     local flags =
     {
         dig = false,
-        g = false,
-        gravity = false,
         l = false,
         left = false,
         r = false,
@@ -116,7 +113,6 @@ function main(args)
     end
 
     local dig = flags.dig or false
-    local gravity = flags.gravity or flags.g or false
 
     local turnDir = 'turnRight'
     local turnDir_alt = 'turnLeft'
@@ -126,7 +122,7 @@ function main(args)
     local yDet = 'detectUp'
 
     local function adv()
-        advance(dig, gravity)
+        advance(dig)
     end
 
     local function turn()
@@ -134,17 +130,10 @@ function main(args)
     end
 
     local function nextLevel()
-        if dig then
-            while turtle[yDet]() do
-                turtle[yDig]()
-                if gravity and yDir ~= 'down' then
-                    os.sleep(GRAVITY_WAIT)
-                else
-                    os.sleep(YIELD_WAIT)
-                end
-            end
+        while not turtle[yDir]() do
+            if dig then turtle[yDig]() end
+            os.sleep(YIELD_WAIT)
         end
-        turtle[yDir]()
         turn()
         turn()
     end
@@ -208,18 +197,11 @@ function main(args)
     end
 end
 
-function advance(dig, gravity)
-    if dig then
-        while turtle.detect() do
-            turtle.dig()
-            if gravity then
-                os.sleep(GRAVITY_WAIT)
-            else
-                os.sleep(YIELD_WAIT)
-            end
-        end
+function advance(dig)
+    while not turtle.forward() do
+        if dig then turtle.dig() end
+        os.sleep(YIELD_WAIT)
     end
-    ensure(turtle.forward)
 end
 
 function ensure(fn, ...)
@@ -274,7 +256,6 @@ function showHelp()
 Options:
   -dig          Digs out blocks in order to proceed.  Default is to stop
                 at obstructions.
-  -gravity      When digging, waits for gravity blocks to fall.
   -ltr          Move left-to-right (default).
   -rtl          Move right-to-left.
   -u | -up      Moves up the prism (default).
