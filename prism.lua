@@ -178,7 +178,7 @@ function main(args)
                     h = h,
                     d = d,
                     v = w*h*d,
-                    i = (z-1) + (x-1)*d + (y-1)*w*d,
+                    i = ((z-1) + (x-1)*d + (y-1)*w*d)+1,
                 }
                 if not doCommands(commands, vars) then
                     return
