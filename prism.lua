@@ -16,6 +16,8 @@ local VERSION = 0.6
 
 local YIELD_WAIT = 0.01
 
+local function log(s) end
+
 function main(args)
     if #args == 0 then
         showHelp()
@@ -96,8 +98,6 @@ function main(args)
     if #commands == 0 then
         print "Warning: no commands given."
     end
-
-    local function log(s) end
 
     if flags.log then
         local logFile = io.open('prism.log', 'w')
