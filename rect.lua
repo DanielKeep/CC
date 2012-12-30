@@ -136,7 +136,7 @@ function main(args)
                 w = w,
                 h = h,
                 a = w*h,
-                i = x + y*w,
+                i = (x-1) + (y-1)*w,
             }
             if not doCommands(commands, vars) then
                 return
