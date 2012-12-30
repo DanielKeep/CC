@@ -107,9 +107,15 @@ function main(args)
     local dig = flags.dig or false
     local gravity = flags.gravity or flags.g or false
 
+    local xa,xb,xd,xdo = 1,w,1,-1
+    local ya,yb,yd,ydo = 1,h,1,-1
+
     local turnDir = 'turnRight'
+    local turnDir_alt = 'turnLeft'
+
     if flags.rtl then
-        turnDir = 'turnLeft'
+        turnDir,turnDir_alt = turnDir_alt,turnDir
+        xa,xb,xd,xdo = xb,xa,-1,1
     end
 
     local function adv()
@@ -120,8 +126,8 @@ function main(args)
         turtle[turnDir]()
     end
 
-    for x=1,w do
-        for y=1,h do
+    for x=xa,xb,xd do
+        for y=ya,yb,yd do
             os.sleep(YIELD_WAIT)
             local vars =
             {
@@ -136,22 +142,22 @@ function main(args)
                 return
             end
 
-            if y ~= h then
+            if y ~= yb then
                 adv()
             end
         end
 
-        if x ~= w then
+        turnDir,turnDir_alt = turnDir_alt,turnDir
+
+        ya,yb,yd,ydo = yb,ya,ydo,yd
+
+        if x ~= xb then
             turn()
             adv()
             turn()
-
-            if turnDir == 'turnRight' then
-                turnDir = 'turnLeft'
-            else
-                turnDir = 'turnRight'
-            end
         end
+
+        xa,xb,xd,xdo = xb,xa,xdo,xd
     end
 end
 
