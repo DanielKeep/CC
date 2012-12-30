@@ -122,6 +122,8 @@ function main(args)
     local turnDir_alt = 'turnRight'
 
     local yDir = 'up'
+    local yDig = 'digUp'
+    local yDet = 'detectUp'
 
     local function adv()
         advance(dig, gravity)
@@ -132,6 +134,16 @@ function main(args)
     end
 
     local function nextLevel()
+        if dig then
+            while turtle[yDet]() do
+                turtle[yDig]()
+                if gravity and yDir ~= 'down' then
+                    os.sleep(GRAVITY_WAIT)
+                else
+                    os.sleep(YIELD_WAIT)
+                end
+            end
+        end
         turtle[yDir]()
         turn()
         turn()
@@ -141,13 +153,15 @@ function main(args)
     local ya,yb,yd = 1,h,1
     local za,zb,zd,zdo = 1,d,1,-1
 
-    if flags.r or flags.right then
+    if flags.rtl then
         turnDir,turnDir_alt = turnDir_alt,turnDir
         xa,xb,xd,xdo = xb,xa,-1,1
     end
 
     if flags.d or flags.down then
         yDir = 'down'
+        yDig = 'digDown'
+        yDet = 'detectDown'
         ya,yb,yd = yb,ya,-1
     end
 
@@ -262,8 +276,8 @@ Options:
   -dig          Digs out blocks in order to proceed.  Default is to stop
                 at obstructions.
   -gravity      When digging, waits for gravity blocks to fall.
-  -l | -left    Move left-to-right (default).
-  -r | -right   Move right-to-left.
+  -ltr          Move left-to-right (default).
+  -rtl          Move right-to-left.
   -u | -up      Moves up the prism (default).
   -d | -down    Moves down the prism.]]
 end

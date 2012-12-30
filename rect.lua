@@ -28,10 +28,8 @@ function main(args)
         dig = false,
         g = false,
         gravity = false,
-        l = false,
-        left = false,
-        r = false,
-        right = false,
+        ltr = false,
+        rtl = false,
     }
     local pargs = {}
     local command = nil
@@ -110,7 +108,7 @@ function main(args)
     local gravity = flags.gravity or flags.g or false
 
     local turnDir = 'turnRight'
-    if flags.r or flags.right then
+    if flags.rtl then
         turnDir = 'turnLeft'
     end
 
@@ -224,8 +222,8 @@ Options:
   -dig          Digs out blocks in order to proceed.  Default is to stop
                 at obstructions.
   -gravity      When digging, waits for gravity blocks to fall.
-  -l | -left    Move left-to-right (default).
-  -r | -right   Move right-to-left.]]
+  -ltr          Move left-to-right (default).
+  -rtl          Move right-to-left.]]
 end
 
 main(args)
