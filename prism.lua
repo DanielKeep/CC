@@ -118,8 +118,8 @@ function main(args)
     local dig = flags.dig or false
     local gravity = flags.gravity or flags.g or false
 
-    local turnDir = 'turnLeft'
-    local turnDir_alt = 'turnRight'
+    local turnDir = 'turnRight'
+    local turnDir_alt = 'turnLeft'
 
     local yDir = 'up'
     local yDig = 'digUp'
@@ -178,7 +178,7 @@ function main(args)
                     h = h,
                     d = d,
                     v = w*h*d,
-                    i = z + x*d + y*w*d,
+                    i = (z-1) + (x-1)*d + (y-1)*w*d,
                 }
                 if not doCommands(commands, vars) then
                     return
@@ -189,15 +189,14 @@ function main(args)
                 end
             end
 
-            turnDir,turnDir_alt = turnDir_alt,turnDir
-
-            za,zb,zd,zdo = zb,za,zdo,zd
-
             if x ~= xb then
                 turn()
                 adv()
                 turn()
             end
+
+            turnDir,turnDir_alt = turnDir_alt,turnDir
+            za,zb,zd,zdo = zb,za,zdo,zd
         end
 
         xa,xb,xd,xdo = xb,xa,xdo,xd
