@@ -119,17 +119,10 @@ function main(args)
 end
 
 function advance(dig, gravity)
-    if dig then
-        while turtle.detect() do
-            turtle.dig()
-            if gravity then
-                os.sleep(GRAVITY_WAIT)
-            else
-                os.sleep(YIELD_WAIT)
-            end
-        end
+    while not turtle.forward() do
+        if dig then turtle.dig() end
+        os.sleep(YIELD_WAIT)
     end
-    ensure(turtle.forward)
 end
 
 function ensure(fn, ...)
