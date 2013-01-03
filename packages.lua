@@ -19,6 +19,11 @@
         files = {"echo.lua*", "place.lua*", "dig.lua*"}
     },
 
+    utility =
+    {
+        files = {"fell.lua*"}
+    },
+
     control =
     {
         files = {"if.lua*", "batch.lua*", "[[.lua*"}
