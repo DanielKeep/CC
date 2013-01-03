@@ -23,4 +23,9 @@
     {
         files = {"if.lua*", "batch.lua*", "[[.lua*"}
     },
+
+    ["marx-says"] =
+    {
+        files = {"marx-says.lua*"}
+    },
 }
