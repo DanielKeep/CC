@@ -33,4 +33,9 @@
     {
         files = {"marx-says.lua*"}
     },
+
+    twelvecraft =
+    {
+        files = {"make-cross.lua*", "make-road.lua*"}
+    },
 }
