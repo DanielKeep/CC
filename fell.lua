@@ -8,9 +8,11 @@
   ]]
 
 --[[
-    Usage: fell
+    Usage: fell [-advance]
   ]]
 
+local args = {...}
+local VERSION = 0.2
 local turtle = { base = turtle }
 setmetatable(turtle, { __index = turtle.base })
 
@@ -45,6 +47,17 @@ turtle.refuel_before "forward"
 turtle.refuel_before "up"
 turtle.refuel_before "down"
 
+local advance = false
+
+for i,arg in ipairs(args) do
+    if arg == '-a' or arg == '-adv' or arg == '-advance' then
+        advance = true
+    else
+        print('Usage: fell [-a|-adv|-advance]')
+        error "invalid argument"
+    end
+end
+
 function start(initial_state)
     local next_state = initial_state
 
@@ -56,6 +69,9 @@ end
 function fell_tree()
     if not turtle.detect() then
         print('Nothing to fell!')
+        if advance then
+            turtle.forward()
+        end
         return
     end
 
@@ -74,7 +90,7 @@ function fell_tree()
     end
 
     -- Look for nearby trees
-    for i=1,3 do
+    for i=1,4 do
         turtle.turnLeft()
         if turtle.detect() then
             return fell_tree
