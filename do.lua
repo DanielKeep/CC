@@ -53,7 +53,11 @@ function main(args)
     setfenv(exprfn, expr_fenv)
 
     local rs = pack(exprfn())
-    print(table.concat(rs, ', '))
+    local rss = {}
+    for i,r in ipairs(rs) do
+        table.insert(rss, tostring(r))
+    end
+    print(table.concat(rss, ', '))
 end
 
 function pack(...)
