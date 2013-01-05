@@ -23,6 +23,7 @@ function main(args)
         if not turtle.detectDown() then break end
         if not turtle.detectUp() then break end
         turtle.digDown()
+        distance = distance + 1
     end
     print('Distance dug: ', distance)
 end
