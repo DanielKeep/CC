@@ -26,7 +26,7 @@
 
     control =
     {
-        files = {"if.lua*", "batch.lua*", "[[.lua*"}
+        files = {"if.lua*", "batch.lua*", "[[.lua*", "do.lua*"}
     },
 
     ["marx-says"] =
