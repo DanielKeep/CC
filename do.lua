@@ -43,7 +43,7 @@ end
 function main(args)
     local expr = table.concat(args, ' ')
     if string.sub(expr, 1, 1) == '=' then
-        expr = 'return '..expr
+        expr = 'return '..string.sub(expr, 2)
     end
     local exprfn = loadstring(expr)
     if not exprfn then
