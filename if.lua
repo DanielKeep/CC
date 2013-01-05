@@ -12,9 +12,23 @@
   ]]
 
 local args = {...}
-local VERSION = 0.2
+local VERSION = 0.3
 
-local cond_fenv = {}
+local cond_fenv =
+{
+    math = math,
+    turtle = turtle,
+    os = os,
+    redstone = redstone,
+}
+
+for k,v in pairs(math) do
+    cond_fenv[k] = v
+end
+
+for k,v in pairs(turtle) do
+    cond_fenv[k] = v
+end
 
 function cond_fenv.missing(value)
     return function(arg)
