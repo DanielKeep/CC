@@ -12,7 +12,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.2
+local VERSION = 0.3
 
 local GRAVITY_WAIT = 0.4
 
@@ -21,6 +21,7 @@ local up = false
 local down = false
 local dig = false
 local gravity = false
+local preserve = false
 local range = {1,16}
 
 if #args == 0 then
@@ -38,6 +39,8 @@ for _,arg in ipairs(args) do
         dig = true
     elseif arg == '-gravity' or arg == '-g' then
         gravity = true
+    elseif arg == '-preserve' or arg == '-p' then
+        preserve = true
     elseif tonumber(arg) then
         local n = tonumber(arg)
         range = {n,n}
@@ -70,8 +73,10 @@ for _,arg in ipairs(args) do
 end
 
 function findPlaceSlotThen(fn)
+    local reqNum = 0
+    if preserve then reqNum = 1 end
     for i=range[1],range[2] do
-        if turtle.getItemCount(i) > 0 then
+        if turtle.getItemCount(i) > reqNum then
             turtle.select(i)
             fn()
             return
