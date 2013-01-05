@@ -43,7 +43,7 @@ end
 function main(args)
     local expr = table.concat(args, ' ')
     if string.sub(expr, 1, 1) == '=' then
-        expr = 'return '..string.sub(expr, 2)
+        expr = 'return ('..string.sub(expr, 2)..')'
     end
     local exprfn = loadstring(expr)
     if not exprfn then
@@ -53,8 +53,8 @@ function main(args)
     setfenv(exprfn, expr_fenv)
 
     local rs = pack(exprfn())
-    for i,r in ipairs(rs) do
-        rs[i] = tostring(r)
+    for i = 1,#rs do
+        rs[i] = tostring(rs[i])
     end
     print(table.concat(rs, ', '))
 end
