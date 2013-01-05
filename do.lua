@@ -42,7 +42,10 @@ end
 
 function main(args)
     local expr = table.concat(args, ' ')
-    local exprfn = loadstring('return '..expr)
+    if substring(expr, 1, 1) == '=' then
+        expr = 'return '..expr
+    end
+    local exprfn = loadstring(expr)
     if not exprfn then
         error "invalid code"
     end
