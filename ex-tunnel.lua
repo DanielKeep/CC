@@ -30,7 +30,7 @@ end
 function advance()
     while not turtle.forward() do
         turtle.dig()
-        os.sleep(YIELD_WAIT)
+        os.sleep(0)
     end
 end
 
