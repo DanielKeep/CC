@@ -42,7 +42,7 @@ end
 
 function main(args)
     local expr = table.concat(args, ' ')
-    local exprfn = loadstring('return '..cond)
+    local exprfn = loadstring('return '..expr)
     if not exprfn then
         error "invalid code"
     end
