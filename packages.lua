@@ -21,7 +21,7 @@
 
     utility =
     {
-        files = {"fell.lua*", "ex-tunnel.lua*"}
+        files = {"fell.lua*", "ex-tunnel.lua*", "floor.bat"}
     },
 
     control =
