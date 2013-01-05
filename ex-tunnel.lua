@@ -18,10 +18,10 @@ function main(args)
     local limit = tonumber(args[1])
     local distance = 0
     while distance ~= limit do
-        if not turtle.detect() then break
+        if not turtle.detect() then break end
         advance()
-        if not turtle.detectDown() then break
-        if not turtle.detectUp() then break
+        if not turtle.detectDown() then break end
+        if not turtle.detectUp() then break end
         turtle.digDown()
     end
     print('Distance dug: ', distance)
