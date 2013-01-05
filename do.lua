@@ -45,6 +45,7 @@ function main(args)
     if string.sub(expr, 1, 1) == '=' then
         expr = 'return '..string.sub(expr, 2)
     end
+    print('expr: ', expr)
     local exprfn = loadstring(expr)
     if not exprfn then
         error "invalid code"
@@ -53,18 +54,11 @@ function main(args)
     setfenv(exprfn, expr_fenv)
 
     local rs = pack(exprfn())
-    for i = 1,#rs do
-        rs[i] = tostring(rs[i])
-    end
     print(table.concat(rs, ', '))
 end
 
 function pack(...)
-    local r = {}
-    for i=1,select('#',...) do
-        table.insert(r, select(i,...))
-    end
-    return r
+    return {...}
 end
 
 main(args)
