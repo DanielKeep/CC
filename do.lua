@@ -45,7 +45,6 @@ function main(args)
     if string.sub(expr, 1, 1) == '=' then
         expr = 'return '..string.sub(expr, 2)
     end
-    print('expr: ', expr)
     local exprfn = loadstring(expr)
     if not exprfn then
         error "invalid code"
