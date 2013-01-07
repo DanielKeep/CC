@@ -9,11 +9,11 @@
 
 #
 # Usage: batch floor.bat WIDTH HEIGHT
-# Place torches in first slot.  Note that for large rooms, you will need to
-# refuel the torches on the fly.
+# Place torches in the first few slots.  Place flooring in the last few slots.
 #
 
 rect $1 $2 -dig [[
-  dig down
+  dig down up
+  if $y==1 and not detectDown() then place -p -r down
   if $x~=1 and $x~=$1 and $y~=1 and $y~=$1 and $x%2==1 and ($x+$y-1)%4==1 then place -p down
 ]]
