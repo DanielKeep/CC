@@ -23,6 +23,7 @@ local dig = false
 local gravity = false
 local preserve = false
 local range = {1,16}
+local reverse = false
 
 if #args == 0 then
     front = true
@@ -41,6 +42,8 @@ for _,arg in ipairs(args) do
         gravity = true
     elseif arg == '-preserve' or arg == '-p' then
         preserve = true
+    elseif arg == '-reverse' or arg == '-r' then
+        reverse = true
     elseif tonumber(arg) then
         local n = tonumber(arg)
         range = {n,n}
@@ -75,7 +78,11 @@ end
 function findPlaceSlotThen(fn)
     local reqNum = 0
     if preserve then reqNum = 1 end
-    for i=range[1],range[2] do
+    local a,b,d = range[1],range[2],1
+    if reverse then
+        a,b,d = b,a,-1
+    end
+    for i=a,b,d do
         if turtle.getItemCount(i) > reqNum then
             turtle.select(i)
             fn()
