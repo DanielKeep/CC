@@ -13,6 +13,7 @@
 #
 
 rect $1 $2 -dig [[
+  wait-on free-slot
   dig down up
   if $x~=1 and $x~=$1 and $y~=1 and $y~=$1 and $x%2==1 and ($x+$y-1)%4==1 then place -p down
 ]]
