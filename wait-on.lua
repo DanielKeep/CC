@@ -34,7 +34,13 @@ function main(args)
         conds[arg] = true
     end
 
+    if not gotCond then
+        error 'no conditions specified'
+    end
+
     local satisfied = false
+    local condMsg = {}
+
     repeat
         os.sleep(0)
         satisfied = true
@@ -47,7 +53,13 @@ function main(args)
                 end
             end
             if not foundSpace then
+                if not condMsg.freeSlot then
+                    print 'Waiting on free slot...'
+                    condMsg.freeSlot = true
+                end
                 satisfied = false
+            else
+                condMsg.freeSlot = false
             end
         end
     until satisfied
