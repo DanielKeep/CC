@@ -123,6 +123,13 @@ function main(args)
         error "invalid depth"
     end
 
+    local moves = w*h*d
+    if turtle.getFuelLevel() < moves then
+        print('Need '..tostring(moves)..' fuel; have '
+            .. tostring(turtle.getFuelLevel()) .. '.')
+        error 'insufficient fuel'
+    end
+
     local dig = flags.dig or false
 
     local turnDir = 'turnRight'
@@ -182,7 +189,7 @@ function main(args)
                     w = w,
                     h = h,
                     d = d,
-                    v = w*h*d,
+                    v = moves,
                     i = ((z-1) + (x-1)*d + (y-1)*w*d)+1,
                 }
                 if not doCommands(commands, vars) then
