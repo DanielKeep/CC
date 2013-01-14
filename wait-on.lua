@@ -45,9 +45,9 @@ function main(args)
                     foundSpace = true
                     break
                 end
-                if not foundSpace then
-                    satisfied = false
-                end
+            end
+            if not foundSpace then
+                satisfied = false
             end
         end
     until satisfied
