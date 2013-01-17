@@ -41,6 +41,9 @@ function main(...)
             yield()
             turtle.digUp()
             goUp()
+            if turtle.detect() then
+                turtle.dig()
+            end
         end
 
         while not turtle.detectDown() do
