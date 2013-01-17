@@ -54,6 +54,10 @@ function main(...)
             end
         end
 
+        if turtle.detectUp() then
+            turtle.digUp()
+        end
+
         while not turtle.detectDown() do
             yield()
             goDown()
@@ -105,7 +109,7 @@ function plantTree()
         turtle.turnLeft()
     end
     turtle.select(SAPLING_SLOT)
-    turtle.place()
+    while not turtle.place() do yield() end
     repeat
         yield()
         if turtle.getItemCount(BONEMEAL_SLOT) == 0 then
@@ -121,7 +125,7 @@ function plantTree()
             turtle.turnLeft()
         end
         turtle.select(BONEMEAL_SLOT)
-        turtle.place()
+        while not turtle.place() do yield() end
         turtle.select(SAPLING_SLOT)
     until not turtle.compare()
 end
