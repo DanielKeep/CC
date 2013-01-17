@@ -110,11 +110,11 @@ function plantTree()
             yield()
             turtle.turnRight()
             turtle.turnRight()
+            turtle.select(BONEMEAL_SLOT)
             while turtle.getItemCount(BONEMEAL_SLOT) < 2 do
                 yield()
-                turtle.select(BONEMEAL_SLOT)
+                turtle.suck()
             end
-            turtle.suck()
             turtle.turnLeft()
             turtle.turnLeft()
         end
