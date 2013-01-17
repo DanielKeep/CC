@@ -26,6 +26,7 @@ local FUEL_SLOT = 16
 
 local FUEL_MINIMUM = 2 * 32
 local CLEAN_UP_INTERVAL = 5
+local CLEAN_UP_WAIT = 60
 
 function main(...)
     local counter = 0
@@ -63,6 +64,7 @@ function main(...)
 
         if counter % CLEAN_UP_INTERVAL == 0 then
             yield()
+            waitFor(CLEAN_UP_WAIT)
             turtle.suck()
             goUp()
             for i=1,3 do
@@ -178,6 +180,10 @@ end
 function logAbove()
     turtle.select(SAMPLE_SLOT)
     return turtle.detectUp() and turtle.compareUp()
+end
+
+function waitFor(seconds)
+    os.sleep(seconds)
 end
 
 main(args)
