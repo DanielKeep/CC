@@ -16,7 +16,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.1
+local VERSION = 0.2
 
 local BONEMEAL_SLOT = 1
 local SAPLING_SLOT = 2
@@ -24,11 +24,14 @@ local SAMPLE_SLOT = 3
 local STORAGE_RANGE = {3,16}
 local FUEL_SLOT = 16
 
-
 local FUEL_MINIMUM = 2 * 32
+local CLEAN_UP_INTERVAL = 5
 
 function main(...)
+    local counter = 0
     while true do
+        yield()
+        counter = counter + 1
         checkFuel()
         plantTree()
         dumpInventory()
@@ -41,8 +44,12 @@ function main(...)
             yield()
             turtle.digUp()
             goUp()
-            if turtle.detect() then
-                turtle.dig()
+            for i=1,4 do
+                yield()
+                turtle.turnLeft()
+                if turtle.detect() then
+                    turtle.dig()
+                end
             end
         end
 
@@ -53,6 +60,18 @@ function main(...)
 
         goBack()
         dumpInventory()
+
+        if counter % CLEAN_UP_INTERVAL == 0 then
+            yield()
+            turtle.suck()
+            goUp()
+            for i=1,3 do
+                yield()
+                turtle.turnLeft()
+                turtle.suck()
+            end
+            turtle.turnLeft()
+            goDown()
     end
 end
 
@@ -76,7 +95,10 @@ function plantTree()
         yield()
         turtle.turnRight()
         turtle.select(SAPLING_SLOT)
-        turtle.suck()
+        while turtle.getItemCount(SAPLING_SLOT) < 2 do
+            yield()
+            turtle.suck()
+        end
         turtle.turnLeft()
     end
     turtle.select(SAPLING_SLOT)
@@ -87,7 +109,10 @@ function plantTree()
             yield()
             turtle.turnRight()
             turtle.turnRight()
-            turtle.select(BONEMEAL_SLOT)
+            while turtle.getItemCount(BONEMEAL_SLOT) < 2 do
+                yield()
+                turtle.select(BONEMEAL_SLOT)
+            end
             turtle.suck()
             turtle.turnLeft()
             turtle.turnLeft()
