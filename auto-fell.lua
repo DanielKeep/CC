@@ -72,6 +72,7 @@ function main(...)
             end
             turtle.turnLeft()
             goDown()
+        end
     end
 end
 
