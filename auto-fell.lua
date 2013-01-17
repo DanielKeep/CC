@@ -177,7 +177,7 @@ end
 
 function logAbove()
     turtle.select(SAMPLE_SLOT)
-    return turtle.compareUp()
+    return turtle.detectUp() and turtle.compareUp()
 end
 
 main(args)
