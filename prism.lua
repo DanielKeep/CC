@@ -12,7 +12,7 @@
   ]]
 
 local args = {...}
-local VERSION = 0.6
+local VERSION = 0.7
 
 local YIELD_WAIT = 0.01
 
@@ -27,10 +27,8 @@ function main(args)
     local flags =
     {
         dig = false,
-        l = false,
-        left = false,
-        r = false,
-        right = false,
+        ltr = false,
+        rtl = false,
         d = false,
         down = false,
         u = false,
