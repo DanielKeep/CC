@@ -21,7 +21,7 @@
 
     utility =
     {
-        depends = {"geometry", "basics", "control"}
+        depends = {"geometry", "basics", "control"},
         files = {"fell.lua*", "ex-tunnel.lua*", "floor.bat", "wait-on.lua*", "auto-fell.lua*"}
     },
 
