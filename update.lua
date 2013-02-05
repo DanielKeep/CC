@@ -24,6 +24,13 @@ local CONFIG_DEFAULT=
     }
 }
 
+function table.find(t, v)
+    for i,e in ipairs(t) do
+        if e == v then return i end
+    end
+    return false
+end
+
 function main(args)
     local config = loadConfig()
 
@@ -37,6 +44,19 @@ function main(args)
                 installPackage(config, pkgs, name)
             end
         end
+    elseif table.find(args, '--list') then
+        -- List available packages.
+        local pkgList = {}
+        for pkg,files in pairs(pkgs) do
+            local display = pkg
+            if config.packages[pkg] then
+                -- It's installed
+                display = display .. ' (installed)'
+            end
+            table.insert(pkgList, display)
+        end
+        table.sort(pkgList)
+        print(table.concat(pkgList, ', '))
     else
         -- Otherwise, update only the specified packages.
         for _,name in ipairs(args) do
