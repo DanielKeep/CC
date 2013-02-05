@@ -39,11 +39,13 @@ function main(args)
 
     if #args == 0 then
         -- If no packages were specified, then we should just update everything.
+        local pkgsToInstall = {}
         for name,installed in pairs(config.packages) do
             if installed then
-                installPackage(config, pkgs, name)
+                table.insert(pkgsToInstall, name)
             end
         end
+        installPackages(config, pkgs, pkgsToInstall)
     elseif table.find(args, '--list') then
         -- List available packages.
         local pkgList = {}
@@ -59,9 +61,11 @@ function main(args)
         print(table.concat(pkgList, ', '))
     else
         -- Otherwise, update only the specified packages.
+        local pkgsToInstall = {}
         for _,name in ipairs(args) do
-            installPackage(config, pkgs, name)
+            table.insert(pkgsToInstall, name)
         end
+        installPackages(config, pkgs, pkgsToInstall)
     end
 
     saveConfig(config)
@@ -92,6 +96,35 @@ function getPackages(repo, branch)
     pkgs.repository = repo
     pkgs.branch = branch
     return pkgs
+end
+
+function checkDependencies(pkgs, pkgsToCheck)
+    local fullList = {}
+    local function checkPkg(name)
+        if pkgs.packages[name] == nil then
+            error("unknown package '"..name.."'")
+        end
+        if not table.find(fullList, name) then
+            table.insert(fullList, name)
+        end
+        local pkg = pkgs.packages[name]
+        if pkg.depends then
+            for _,depName in ipairs(pkg.depends) do
+                checkPkg(depName)
+            end
+        end
+    end
+    for _,name in ipairs(pkgsToCheck) do
+        checkPkg(name)
+    end
+    return fullList
+end
+
+function installPackages(config, pkgs, pkgsToInstall)
+    local pkgsToInstall = checkDependencies(pkgs, pkgsToInstall)
+    for _,name in ipairs(pkgsToInstall) do
+        installPackage(config, pkgs, name)
+    end
 end
 
 function installPackage(config, pkgs, name)
