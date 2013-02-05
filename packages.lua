@@ -11,7 +11,7 @@
 
     geometry =
     {
-        files = {"line.lua*", "rect.lua*", "prism.lua*"}
+        files = {"line.lua*", "rect.lua*", "prism.lua*", "wall.lua*"}
     },
 
     basics =
