@@ -47,7 +47,7 @@ function main(args)
     elseif table.find(args, '--list') then
         -- List available packages.
         local pkgList = {}
-        for pkg,files in pairs(pkgs) do
+        for pkg,files in pairs(pkgs.packages) do
             local display = pkg
             if config.packages[pkg] then
                 -- It's installed
@@ -87,18 +87,19 @@ function saveConfig(t)
 end
 
 function getPackages(repo, branch)
-    local pkgs = textutils.unserialize(githubGet(repo, branch, 'packages.lua'))
+    local pkgs = {}
+    pkgs.packages = textutils.unserialize(githubGet(repo, branch, 'packages.lua'))
     pkgs.repository = repo
     pkgs.branch = branch
     return pkgs
 end
 
 function installPackage(config, pkgs, name)
-    if pkgs[name] == nil then
+    if pkgs.packages[name] == nil then
         error("unknown package '"..name.."'")
     end
     print(name)
-    local pkg = pkgs[name]
+    local pkg = pkgs.packages[name]
     for _,path in ipairs(pkg.files) do
         local localName = path
         local repoPath = path
