@@ -51,7 +51,7 @@ function main(args)
             local display = pkg
             if config.packages[pkg] then
                 -- It's installed
-                display = display .. ' (installed)'
+                display = display .. '*'
             end
             table.insert(pkgList, display)
         end
